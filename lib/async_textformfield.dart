@@ -104,25 +104,16 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
 
   Widget _getSuffixIcon() {
     if (isValidating) {
-      return CircularProgressIndicator(
-        strokeWidth: 2.0,
-        valueColor: AlwaysStoppedAnimation(Colors.blue),
-      );
+      return const CircularProgressIndicator.adaptive();
     } else {
-      if (!isValid && isDirty) {
-        return Icon(
-          Icons.cancel,
-          color: Colors.red,
-          size: 20,
-        );
-      } else if (isValid) {
-        return Icon(
+      if (isValid) {
+        return const Icon(
           Icons.check_circle,
           color: Colors.green,
           size: 20,
         );
       } else {
-        return Container();
+        return const SizedBox();
       }
     }
   }
