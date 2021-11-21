@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: controller,
               validationDebounce: Duration(milliseconds: 500),
               validator: isValidPasscode,
-              hintText: 'Enter the Passcode',
+              decoration: const InputDecoration(hintText: 'Enter the Passcode',/*decorate the field*/),
               isValidatingMessage: 'Comparing with the hash from a secure server..',
               valueIsInvalidMessage: 'Nope, Try harder..',
               valueIsEmptyMessage: 'No one sets an empty passcode!',

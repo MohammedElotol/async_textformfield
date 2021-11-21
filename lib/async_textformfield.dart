@@ -10,18 +10,19 @@ class AsyncTextFormField extends StatefulWidget {
   final String valueIsEmptyMessage;
   final String valueIsInvalidMessage;
   final InputDecoration decoration;
+  final void Function(String? newValue)? onSaved;
 
-  const AsyncTextFormField(
-      {Key? key,
-      required this.validator,
-      required this.validationDebounce,
-      required this.controller,
-      this.decoration = const InputDecoration(),
-      this.isValidatingMessage = "please wait for the validation to complete",
-      this.valueIsEmptyMessage = 'please enter a value',
-      this.valueIsInvalidMessage = 'please enter a valid value',
-      })
-      : super(key: key);
+  const AsyncTextFormField({
+    Key? key,
+    required this.validator,
+    required this.validationDebounce,
+    required this.controller,
+    this.decoration = const InputDecoration(),
+    this.onSaved,
+    this.isValidatingMessage = "please wait for the validation to complete",
+    this.valueIsEmptyMessage = 'please enter a value',
+    this.valueIsInvalidMessage = 'please enter a valid value',
+  }) : super(key: key);
 
   @override
   _AsyncTextFormFieldState createState() => _AsyncTextFormFieldState();
@@ -76,6 +77,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
       textInputAction: TextInputAction.next,
       decoration: widget.decoration.copyWith(
           suffix: SizedBox(height: 20, width: 20, child: _getSuffixIcon())),
+      onSaved: widget.onSaved,
     );
   }
 
