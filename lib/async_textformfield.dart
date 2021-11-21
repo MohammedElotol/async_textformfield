@@ -6,20 +6,21 @@ class AsyncTextFormField extends StatefulWidget {
   final Future<bool> Function(String) validator;
   final Duration validationDebounce;
   final TextEditingController controller;
-  final String hintText;
   final String isValidatingMessage;
   final String valueIsEmptyMessage;
   final String valueIsInvalidMessage;
+  final InputDecoration decoration;
 
   const AsyncTextFormField(
       {Key? key,
       required this.validator,
       required this.validationDebounce,
       required this.controller,
+      this.decoration = const InputDecoration(),
       this.isValidatingMessage = "please wait for the validation to complete",
       this.valueIsEmptyMessage = 'please enter a value',
       this.valueIsInvalidMessage = 'please enter a valid value',
-      this.hintText = ''})
+      })
       : super(key: key);
 
   @override
@@ -32,6 +33,7 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
   var isValid = false;
   var isDirty = false;
   var isWaiting = false;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -72,7 +74,8 @@ class _AsyncTextFormFieldState extends State<AsyncTextFormField> {
       controller: widget.controller,
       maxLines: 1,
       textInputAction: TextInputAction.next,
-      decoration: InputDecoration(suffix: SizedBox(height: 20, width: 20, child: _getSuffixIcon()), hintText: widget.hintText),
+      decoration: widget.decoration.copyWith(
+          suffix: SizedBox(height: 20, width: 20, child: _getSuffixIcon())),
     );
   }
 
